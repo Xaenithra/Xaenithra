@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-bone: #EAE3D9;
+  --color-charcoal: #2A2522;
+  --color-ink-light: rgba(42, 37, 34, 0.4);
+  --color-ink-medium: rgba(42, 37, 34, 0.6);
+  --font-serif: "Cinzel", serif;
+  --font-display: "Playfair Display", serif;
+  --font-sans: "Outfit", sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bone);
+    color: var(--color-charcoal);
+    font-family: var(--font-display);
+    position: relative;
+    overflow-x: hidden;
+  }
+}
+
+/* Global Parchment Texture applied via pseudo-element to avoid interfering with content */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
+  mix-blend-mode: color-burn;
+}
+
+/* Base Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+}
+
+/* Utilities for Vintage Borders */
+@layer utilities {
+  .vintage-border-outer {
+    border: 1px solid var(--color-charcoal);
+    padding: 4px;
+    position: relative;
+  }
+
+  .vintage-border-inner {
+    border: 1px solid var(--color-ink-medium);
+    padding: 16px;
+    height: 100%;
+    position: relative;
+  }
+
+  /* Thin double lines used repeatedly in the design */
+  .double-line-top {
+    border-top: 3px double var(--color-ink-medium);
+  }
+
+  .double-line-bottom {
+    border-bottom: 3px double var(--color-ink-medium);
+  }
+
+  /* Ornate Team Card Shape (Shield bottom) */
+  .shield-card {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 1px solid var(--color-charcoal);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-bone);
+  border-left: 1px solid var(--color-ink-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-ink-medium);
+  border: 1px solid var(--color-bone);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-charcoal);
+}
