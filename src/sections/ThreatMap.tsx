@@ -4,18 +4,19 @@ import { Crosshair, Globe, ShieldCheck, Activity, Wifi, ShieldAlert } from 'luci
 import { fetchLiveThreats, type ThreatEvent } from '../services/threatService';
 
 const STATIC_NODES = [
-    { id: 'SZX', label: 'Shenzhen', x: 81, y: 40 },
-    { id: 'TKY', label: 'Tokyo', x: 88, y: 35 },
-    { id: 'SYD', label: 'Sydney', x: 89, y: 78 },
-    { id: 'SGP', label: 'Singapore', x: 78, y: 58 },
-    { id: 'BOM', label: 'Mumbai', x: 68, y: 48 },
-    { id: 'DXB', label: 'Dubai', x: 62, y: 45 },
-    { id: 'MOW', label: 'Moscow', x: 58, y: 20 },
-    { id: 'FRA', label: 'Frankfurt', x: 49, y: 27 },
-    { id: 'LHR', label: 'London', x: 46, y: 25 },
-    { id: 'NYC', label: 'New York', x: 26, y: 33 },
-    { id: 'SFO', label: 'San Francisco', x: 15, y: 35 },
-    { id: 'GRU', label: 'Sao Paulo', x: 33, y: 72 },
+    // `x`/`y` are precomputed from `geoToGrid(lat, lng)` against `public/world.svg`'s mapsvg:geoViewBox.
+    { id: 'SZX', label: 'Shenzhen', lat: 22.5431, lng: 114.0579, x: 78.75, y: 42.97 },
+    { id: 'TKY', label: 'Tokyo', lat: 35.6762, lng: 139.6503, x: 85.86, y: 33.72 },
+    { id: 'SYD', label: 'Sydney', lat: -33.8688, lng: 151.2093, x: 89.08, y: 82.66 },
+    { id: 'SGP', label: 'Singapore', lat: 1.3521, lng: 103.8198, x: 75.9, y: 57.88 },
+    { id: 'BOM', label: 'Mumbai', lat: 19.076, lng: 72.8777, x: 67.29, y: 45.41 },
+    { id: 'DXB', label: 'Dubai', lat: 25.2048, lng: 55.2708, x: 62.4, y: 41.09 },
+    { id: 'MOW', label: 'Moscow', lat: 55.7558, lng: 37.6173, x: 57.49, y: 19.59 },
+    { id: 'FRA', label: 'Frankfurt', lat: 50.1109, lng: 8.6821, x: 49.44, y: 23.57 },
+    { id: 'LHR', label: 'London', lat: 51.5074, lng: -0.1278, x: 46.99, y: 22.58 },
+    { id: 'NYC', label: 'New York', lat: 40.7128, lng: -74.006, x: 26.45, y: 30.18 },
+    { id: 'SFO', label: 'San Francisco', lat: 37.7749, lng: -122.4194, x: 12.98, y: 32.25 },
+    { id: 'GRU', label: 'Sao Paulo', lat: -23.5558, lng: -46.6396, x: 34.06, y: 75.4 },
 ];
 
 type Payload = {
@@ -28,9 +29,23 @@ type Payload = {
 };
 
 const geoToGrid = (lat: number, lng: number) => {
+    // Matches `public/world.svg` -> mapsvg:geoViewBox="-169.110266 83.600842 190.486279 -58.508473"
+    const minLng = -169.110266;
+    const maxLat = 83.600842;
+    const maxLng = 190.486279;
+    const minLat = -58.508473;
+
+    const lngSpan = maxLng - minLng;
+    let normalizedLng = lng;
+    while (normalizedLng < minLng) normalizedLng += lngSpan;
+    while (normalizedLng > maxLng) normalizedLng -= lngSpan;
+
+    const x = ((normalizedLng - minLng) / lngSpan) * 100;
+    const y = ((maxLat - lat) / (maxLat - minLat)) * 100;
+
     return {
-        x: (lng + 180) * (100 / 360),
-        y: (90 - lat) * (100 / 180)
+        x: Math.min(100, Math.max(0, x)),
+        y: Math.min(100, Math.max(0, y)),
     };
 };
 
@@ -38,6 +53,7 @@ export default function ThreatMap() {
     const [payloads, setPayloads] = useState<Payload[]>([]);
     const [activeLogs, setActiveLogs] = useState<Payload[]>([]);
     const [threatCache, setThreatCache] = useState<ThreatEvent[]>([]);
+    const WORLD_MAP_URL = `${import.meta.env.BASE_URL}world.svg`;
 
     useEffect(() => {
         const refreshThreats = async () => {
@@ -70,7 +86,7 @@ export default function ThreatMap() {
             };
             
             setPayloads(prev => [...prev.slice(-4), newPayload]);
-            setActiveLogs(prev => [newPayload, ...prev.slice(0, 7)]);
+            setActiveLogs(prev => [newPayload, ...prev.slice(0, 3)]);
             
             setTimeout(() => {
                 setPayloads(prev => prev.map(p => p.id === newPayload.id ? { ...p, status: 'DEPLOYED' } : p));
@@ -205,20 +221,27 @@ export default function ThreatMap() {
                     </div>
 
                     {/* Tactical Map - High Density Display */}
-                    <div className="w-full xl:w-2/3 aspect-[4/3] sm:aspect-[16/9] relative bg-[#f7f2ed] border-2 border-charcoal rounded-sm overflow-hidden shadow-2xl group cursor-none">
+                    <div
+                        className="w-full xl:w-4/5 relative bg-[#f7f2ed] border-2 border-charcoal rounded-sm overflow-hidden shadow-2xl group cursor-none"
+                        style={{ aspectRatio: '1009.6727 / 665.96301' }}
+                    >
                         
+                        {/* Detailed world map (`public/world.svg`) */}
+                        <div
+                            className="absolute inset-0 pointer-events-none opacity-[0.16]"
+                            style={{
+                                backgroundImage: `url(${WORLD_MAP_URL})`,
+                                backgroundSize: '100% 100%',
+                                backgroundRepeat: 'no-repeat',
+                                backgroundPosition: 'center',
+                                mixBlendMode: 'multiply',
+                                filter: 'contrast(1.05) saturate(0.9)',
+                            }}
+                        />
+
                         {/* Static Grid Lines */}
                         <div className="absolute inset-0 opacity-[0.1] pointer-events-none" 
                              style={{ backgroundImage: 'linear-gradient(#2A2522 1px, transparent 1px), linear-gradient(90deg, #2A2522 1px, transparent 1px)', backgroundSize: '10% 10%' }} />
-                        
-                        {/* Dotted World Silhouette Silhouette placeholder (using specialized background image logic) */}
-                        <div className="absolute inset-0 opacity-[0.07] pointer-events-none scale-110"
-                             style={{ 
-                                backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 1000 500\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M164 122l-1 4-5-2-4 3-1 4 4 1-1 4 3 1 3-3 4 1 1-3 5-1-1-4-2-4h-5zm16 6l-1 5 3 2 4-2-1-4-5-1zm6 3l1 3 4 1 2-2-1-3-6 1zm21-6l-1 4-5-1-4 3 1 4 5 1-1 4 3 2 4-3 5 1-1-4-3-3-4 1-1-4-3 1-1-5h-4zm24 9l1 3 4 2 3-1-1-4-7 0zm20-6l-1 4-5-1-4 3-1 4 4 1 1 4 3 1 3-3 5 1 1-4-1-4-5-2-1-4-5 1zm18 6l-1 4 3 2 5-2-1-4-6 0zm31 0l-1 4 4 2 5-2-1-4-7 0z\' fill=\'%232A2522\'/%3E%3C/svg%3E")',
-                                backgroundSize: 'contain',
-                                backgroundRepeat: 'no-repeat',
-                                backgroundPosition: 'center'
-                             }} />
 
                         {/* Multiple Radar Elements */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[180%] opacity-[0.03] pointer-events-none rounded-full"
@@ -276,9 +299,11 @@ export default function ThreatMap() {
 
                         {/* Static Map Nodes with ID Labels */}
                         {STATIC_NODES.map(node => (
-                            <div key={node.id} 
-                                 className="absolute z-20 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center group/node"
-                                 style={{ left: `${node.x}%`, top: `${node.y}%` }}>
+                            <div
+                                key={node.id}
+                                className="absolute z-20 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center group/node"
+                                style={{ left: `${node.x}%`, top: `${node.y}%` }}
+                            >
                                 <div className="w-1.5 h-1.5 bg-charcoal/30 border border-charcoal/40 rounded-full group-hover/node:scale-150 transition-transform" />
                                 <span className="absolute bottom-full mb-1 opacity-0 group-hover/node:opacity-100 transition-opacity font-mono text-[7px] bg-charcoal text-bone px-1 py-0.5 pointer-events-none">
                                     NODE::{node.id}

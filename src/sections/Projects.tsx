@@ -5,29 +5,29 @@ import { X, ArrowRight, Github, ExternalLink, Hexagon, Database, Power } from 'l
 const projects = [
     { 
         id: 'SEC-01', 
-        title: 'Project_ASTRA', 
+        title: 'ASTRA', 
         desc: 'Advanced Surveillance & Threat Recognition Architecture.', 
-        fullDesc: 'A custom tactical engine designed for real-time internet intelligence. Engineered specifically for high-stakes cybersecurity applications to detect deepfakes, manipulated media, and hidden data modifications in hostile streams.', 
+        fullDesc: 'ASTRA is a multimodal authenticity detector for images, videos, and URLs. It uses FastAPI + PyTorch (XceptionNet, MTCNN) with Grad-CAM explainability and a Next.js dashboard.', 
         features: ['Real-time Network Auditing', 'Deepfake Inversion Engine', 'Threat Vector Hunting', 'Media Integrity Validation'],
-        techStack: ['Python', 'Vision Synthesis', 'Vortex Engine', 'Astra IX'],
+        techStack: ['Python', 'Next.JS', ' Computer Vision', 'Deepfake Detection', 'Multimodal AI', 'Explainable AI (XAI)'],
         image: '/Astra2.png', 
         link: 'https://www.instagram.com/p/DVVdY4RjZzW/?img_index=1',
         icon: ExternalLink
     },
     { 
         id: 'SEC-02', 
-        title: 'TRINETRA_SUITE', 
+        title: 'TRINETRA SUITE', 
         desc: 'Digital Assembly Line & Forensic Extraction Core.', 
         fullDesc: 'The TriNetra suite provides a unified pipeline for forensic data ingestion and automated reporting. Built to handle complex digital archives with military-grade efficiency, it ensures no trace is left unanalyzed.', 
         features: ['Indrajaal Extraction Core', 'Automated Dossier Generation', 'Encrypted Archive Processing', 'Forensic Timeline Recon'],
-        techStack: ['Rust', 'React / Vite', 'Digital Forensics', 'TypeScript'],
+        techStack: ['Rust', 'ADB Shell', 'Digital Forensics', 'Malware Analysis', 'Logs Organizer'],
         image: '/Trinetra.png', 
         link: 'https://github.com/utxdev/Xaenithra-ps6-investigation',
         icon: Github
     },
     { 
         id: 'SEC-03', 
-        title: 'ENCODED_GRID', 
+        title: 'ENCODED GRID', 
         desc: 'Zero-Trust Secure Communication Mesh.', 
         fullDesc: "A closed-circuit communication matrix utilizing Pre-Shared Static Artifacts (PSSA). Operating on a 'blind relay' architecture, it eliminates the possibility of traffic analysis even at the ISP layer.", 
         features: ['Zero-Knowledge Signal', 'Static Artifact Encryption', 'PSSA Validation Loop', 'Hostile Grid Operation'],
@@ -38,11 +38,11 @@ const projects = [
     },
     { 
         id: 'SEC-04', 
-        title: 'COMPANIO_AI', 
+        title: 'COMPANIO', 
         desc: 'Empathetic Human-AI Interface for Isolation Mitigation.', 
         fullDesc: 'Harnessing the Google Gemini multimodal model, Companio provides high-fidelity voice interaction through the persona of "Leda". Designed for the elderly, it functions as a companion that truly listens.', 
         features: ['Leda Multimodal Persona', 'Real-time Voice Synthesis', 'Empathetic Response Logic', 'Integrated Life-Link Tools'],
-        techStack: ['Gemini Multimodal API', 'Node.js', 'Express', 'Vite / React'],
+        techStack: ['Gemini Multimodal API', 'Custom Model', 'Express', 'Vite / React'],
         image: '/Companio.png', 
         link: 'https://github.com/utxdev/Companio',
         icon: Github
@@ -68,9 +68,10 @@ export default function Projects() {
                 >
                     <div className="inline-flex items-center gap-4 mb-4">
                         <Hexagon className="w-8 h-8 text-gold-dark animate-spin-slow" />
-                        <h2 className="text-3xl md:text-5xl tracking-[0.3em] font-serif uppercase text-charcoal">Offensive_Arsenal</h2>
+                        <h2 className="text-3xl md:text-5xl tracking-[0.3em] font-serif uppercase text-charcoal">Offensive Arsenal</h2>
+                        <Hexagon className="w-8 h-8 text-gold-dark animate-spin-slow" />
                     </div>
-                    <p className="font-mono text-[10px] text-charcoal/40 tracking-[0.4em] uppercase">Archive_Classification::TS_CLEARANCE_REQUIRED</p>
+                    <p className="font-mono text-[10px] text-charcoal/40 tracking-[0.4em] uppercase">Chapter 3 : Archive Classification</p>
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
@@ -100,9 +101,9 @@ export default function Projects() {
                             </div>
                             
                             <div className="p-10 flex-1 flex flex-col relative bg-[#FDFCF8]/80 group-hover:bg-white transition-colors duration-700">
-                                <div className="absolute top-0 right-10 -translate-y-1/2 bg-charcoal text-bone px-4 py-1 font-mono text-xs tracking-widest shadow-2xl group-hover:bg-gold-dark transition-colors">
+                                {/* <div className="absolute top-0 right-10 -translate-y-1/2 bg-charcoal text-bone px-4 py-1 font-mono text-xs tracking-widest shadow-2xl group-hover:bg-gold-dark transition-colors">
                                     {project.id}
-                                </div>
+                                </div> */}
                                 
                                 <h3 className="font-serif text-2xl text-charcoal tracking-widest uppercase mb-4 transition-all duration-500 group-hover:tracking-[0.2em]">{project.title}</h3>
                                 <p className="font-sans text-charcoal/70 leading-relaxed text-[13px] mb-8 flex-1 italic">
@@ -150,9 +151,9 @@ export default function Projects() {
                             <div className="w-full lg:w-1/2 h-80 lg:h-auto border-b-2 lg:border-b-0 lg:border-r-2 border-charcoal bg-charcoal relative">
                                 <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-gradient-to-r from-charcoal/20 to-transparent pointer-events-none" />
-                                <div className="absolute bottom-10 left-10 p-4 border border-bone/20 backdrop-blur-sm bg-black/40 text-bone font-mono text-[10px] tracking-widest uppercase">
+                                {/* <div className="absolute bottom-10 left-10 p-4 border border-bone/20 backdrop-blur-sm bg-black/40 text-bone font-mono text-[10px] tracking-widest uppercase">
                                     IMAGE_VERIFICATION::PASS
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className="w-full lg:w-1/2 p-12 lg:p-16 flex flex-col justify-center relative bg-bone">
@@ -206,7 +207,7 @@ export default function Projects() {
                                     className="inline-flex items-center gap-4 px-10 py-5 bg-charcoal text-bone hover:bg-gold-dark transition-all uppercase tracking-[0.3em] text-xs self-start group shadow-[10px_10px_0_0_rgba(42,37,34,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
                                 >
                                     <selectedProject.icon className="w-5 h-5" />
-                                    <span>UPLINK_TO_CHEST</span>
+                                    <span>DECRYPT PROJECT CORE</span>
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                                 </a>
                             </div>

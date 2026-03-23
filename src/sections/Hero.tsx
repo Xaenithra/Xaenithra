@@ -299,7 +299,7 @@ export default function Hero({ onUnlock, isUnlocked }: { onUnlock: () => void, i
                                     className="absolute top-0 left-0 z-50 pointer-events-none"
                                 >
                                     <svg width="32" height="48" viewBox="0 0 24 36" fill="none" className="drop-shadow-[0_0_12px_rgba(239,68,68,0.8)] filter">
-                                        <path d="M1 1L10 35L14 20L23 15L1 1Z" fill="#ef4444" stroke="#7f1d1d" strokeWidth="1.5" strokeLinejoin="round"/>
+                                        <path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.85a.5.5 0 0 0-.85.35Z" fill="#dd5b5a" stroke="#000000" strokeWidth="1.5" strokeLinejoin="round"/>
                                     </svg>
                                 </motion.div>
                             )}

@@ -83,10 +83,10 @@ export default function Team() {
                 >
                     <div className="inline-flex items-center gap-4 mb-6">
                         <div className="w-8 h-[1px] bg-gold-dark" />
-                        <h2 className="text-3xl md:text-5xl font-serif uppercase tracking-[0.3em] text-charcoal">Operative_Roster</h2>
+                        <h2 className="text-3xl md:text-5xl font-serif uppercase tracking-[0.3em] text-charcoal">Our Team</h2>
                         <div className="w-8 h-[1px] bg-gold-dark" />
                     </div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-charcoal/40 mb-2">Access_Node::Chapter_I_Dossiers</p>
+                    <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-charcoal/40 mb-2">Chapter II : Accounts</p>
                     <p className="font-serif italic text-sm text-charcoal/60">"Identity is the final vulnerability. We keep ours encrypted."</p>
                 </motion.div>
 
@@ -130,7 +130,7 @@ export default function Team() {
                                 
                                 <button className="mt-4 px-6 py-2 border-2 border-charcoal text-[9px] uppercase tracking-[.3em] hover:bg-charcoal hover:text-bone transition-all flex items-center gap-3 mx-auto shadow-md">
                                     <FileText className="w-3 h-3" />
-                                    ACCESS_DOSSIER
+                                    ACCESS ACCOUNT
                                 </button>
                             </div>
                         </motion.div>
@@ -204,7 +204,7 @@ export default function Team() {
                                             className="inline-flex items-center gap-4 px-10 py-5 bg-charcoal text-bone hover:bg-gold-dark transition-all uppercase tracking-[0.3em] text-xs shadow-[10px_10px_0_0_rgba(42,37,34,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 group"
                                         >
                                             <ExternalLink className="w-5 h-5" />
-                                            <span>ACCESS_FULL_PORTFOLIO</span>
+                                            <span>Deep Scan</span>
                                             <ChevronRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                                         </a>
                                         <div className="flex-1" />

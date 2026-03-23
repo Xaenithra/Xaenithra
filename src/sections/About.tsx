@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Skull, ShieldAlert, Cpu, Database, Binary, Zap } from 'lucide-react';
+import { ShieldAlert, Database, Binary, Zap, FlagTriangleRight, Globe } from 'lucide-react';
 
 const pillars = [
     {
@@ -8,12 +8,12 @@ const pillars = [
         desc: 'Web exploitation, reverse engineering binaries, privilege escalation, and real-world system compromise. We break systems by thinking like adversaries.'
     },
     {
-        icon: Skull,
+        icon: FlagTriangleRight,
         title: 'CTF Warfare',
         desc: 'We treat CTF as sports and cyber warfare. Solving complex cryptography, analyzing memory dumps, and dominating in pwn and binary exploitation.'
     },
     {
-        icon: Cpu,
+        icon: Globe,
         title: 'Digital Intelligence Operatives',
         desc: 'Advanced OSINT capabilities, threat hunting, and pattern recognition. Simulating adversaries rather than just defending against them.'
     },
@@ -89,13 +89,13 @@ export default function About() {
                     </div>
 
                     <h3 className="relative z-10 text-2xl md:text-3xl lg:text-4xl font-serif text-bone leading-relaxed text-center mb-10 font-light italic tracking-tight">
-                        "We don’t just solve challenges — we <span className="text-gold-light">decode systems."</span>
+                        "We don’t just solve challenges. We <span className="text-gold-light">decode systems</span>."
                     </h3>
                     
                     <div className="relative z-10 w-24 h-[1px] bg-gold-muted/30 mx-auto mb-10" />
 
                     <p className="relative z-10 text-lg md:text-xl font-sans text-bone/80 leading-relaxed text-center font-light max-w-4xl mx-auto px-4">
-                        <strong className="font-semibold text-gold-light tracking-widest uppercase">Xaenithra</strong> is a clandestine cybersecurity collective that treats CTF as warfare, intelligence as currency, and skill as hierarchy. We are not loud — we are precise and dangerous. We mix old-world intelligence aesthetics with modern offensive security execution.
+                        <strong className="font-semibold text-gold-light tracking-widest uppercase">Xaenithra</strong> is an organization that conducts cyber warfare CTF competitions, uses intelligence as a commodity for purchase, displays a detailed level of skill-based hierarchy, does not make noise but performs very accurately and efficiently, employs the aesthetics associated with the traditional form of gathering intelligence with the modern day form of executing offensive security operations.
                     </p>
                     
                     <div className="absolute bottom-4 right-4 flex gap-2">
